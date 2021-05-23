@@ -8,22 +8,22 @@ const chalk = require('chalk')
  */
 function addMapping (router, mapping) {
   for (const url in mapping) {
-    if (url.startsWith('GET ')) {
+    if (url.toLowerCase().startsWith('get ')) {
       const path = url.substring(4)
       router.get(path, mapping[url])
-      console.log(chalk.green(`register URL mapping: GET ${path}`))
-    } else if (url.startsWith('POST ')) {
+      console.log(chalk.green(`register URL mapping: ${chalk.yellow('get')} ${path}`))
+    } else if (url.toLowerCase().startsWith('post ')) {
       const path = url.substring(5)
       router.post(path, mapping[url])
-      console.log(chalk.green(`register URL mapping: POST ${path}`))
-    } else if (url.startsWith('PUT ')) {
+      console.log(chalk.green(`register URL mapping: ${chalk.yellow('post')} ${path}`))
+    } else if (url.toLowerCase().startsWith('put ')) {
       const path = url.substring(4)
       router.put(path, mapping[url])
-      console.log(chalk.green(`register URL mapping: PUT ${path}`))
-    } else if (url.startsWith('DELETE ')) {
+      console.log(chalk.green(`register URL mapping: ${chalk.yellow('put')} ${path}`))
+    } else if (url.toLowerCase().startsWith('delete ')) {
       const path = url.substring(7)
       router.del(path, mapping[url])
-      console.log(chalk.green(`register URL mapping: DELETE ${path}`))
+      console.log(chalk.green(`register URL mapping: ${chalk.yellow('delete')} ${path}`))
     } else {
       console.log(chalk.red(`invalid URL: ${url}`))
     }

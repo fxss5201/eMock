@@ -19,5 +19,5 @@ app.use(bodyParser())
 // add controllers:
 app.use(controller())
 
-app.listen(3000)
-console.log(chalk.green('app started at port 3000...'))
+app.listen(8888)
+console.log(chalk.green('app started at port 8888...'))
