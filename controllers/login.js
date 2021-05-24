@@ -1,12 +1,14 @@
-const global = require('./../global.js').global
-console.log(global)
+const md5 = require('blueimp-md5')
 
 const loginFn = async (ctx, next) => {
-  console.log(ctx.request.body)
-  global.setCookie(123456)
+  const postData = ctx.request.body.data
+  ctx.global.setCookie(123456)
   ctx.response.type = 'json'
   ctx.response.body = ({
-    login: [{ id: 1, name: 'John Smith' }]
+    user: {
+      name: postData.name,
+      cookie: md5(postData.password)
+    }
   })
   next()
 }

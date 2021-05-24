@@ -1,11 +1,13 @@
 const Koa = require('koa')
 const chalk = require('chalk')
-
 const bodyParser = require('koa-bodyparser')
 
+const global = require('./global.js').global
 const controller = require('./controller')
 
 const app = new Koa()
+
+app.context.global = global
 
 // log request URL:
 app.use(async (ctx, next) => {

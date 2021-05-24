@@ -1,4 +1,3 @@
-const global = require('./../global.js').global
 const Mock = require('mockjs')
 const Random = Mock.Random
 
@@ -24,7 +23,6 @@ const getArticlesFn = async (ctx, next) => {
   const currentPage = ctx.query.currentPage * 1
   const pageSize = ctx.query.pageSize * 1
   const list = articleList.list.filter((item, index) => index >= (currentPage - 1) * pageSize && index < currentPage * pageSize)
-  console.log(global.get().cookie)
   ctx.response.type = 'json'
   ctx.response.body = ({
     list,
