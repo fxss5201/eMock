@@ -10,7 +10,17 @@ class Global {
    */
   setCookie (val) {
     const cookies = this.global.cookies.concat(val)
-    this.global.cookie = [...new Set(cookies)]
+    this.global.cookies = [...new Set(cookies)]
+  }
+
+  /**
+   * 删除cookie
+   * @param {string} val cookie值 
+   */
+  deleteCookie (val) {
+    console.log(this.global.cookies)
+    this.global.cookies.splice(this.global.cookies.indexOf(val), 1)
+    console.log(this.global.cookies)
   }
 
   /**
@@ -19,7 +29,7 @@ class Global {
    * @returns true: 在cookies中，false：不在cookies中
    */
   isInCookies (val) {
-    return this.global.cookie.indexOf(val) !== -1
+    return this.global.cookies.indexOf(val) !== -1
   }
 
   /**

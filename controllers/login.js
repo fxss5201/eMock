@@ -2,7 +2,7 @@ const md5 = require('blueimp-md5')
 
 const loginFn = async (ctx, next) => {
   const postData = ctx.request.body.data
-  ctx.global.setCookie(123456)
+  ctx.global.setCookie(md5(postData.password))
   ctx.response.type = 'json'
   ctx.response.body = ({
     user: {
