@@ -1,7 +1,9 @@
 const logoutFn = async (ctx, next) => {
   ctx.global.deleteCookie(ctx.cookies.get('mockCookie'))
   ctx.response.type = 'json'
-  ctx.response.body = ({})
+  ctx.response.body = ({
+    msg: '退出成功'
+  })
   next()
 }
 

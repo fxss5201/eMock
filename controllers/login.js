@@ -13,6 +13,17 @@ const loginFn = async (ctx, next) => {
   next()
 }
 
+const loginByCookieFn = async (ctx, next) => {
+  const user = ctx.global.getUserByCookie(ctx.cookies.get('mockCookie'))
+  
+  ctx.response.type = 'json'
+  ctx.response.body = ({
+    user: user
+  })
+  next()
+}
+
 module.exports = {
-  'post /api/login': loginFn
+  'post /api/login': loginFn,
+  'post /api/loginByCookie': loginByCookieFn
 }

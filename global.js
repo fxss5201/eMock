@@ -1,6 +1,12 @@
 /** 存放公共变量，供所有使用 */
 class Global {
   global = {
+    users: [
+      {
+        cookie: 'cc077e4074d58b5b3afe96921b220364',
+        name: 'fxss'
+      }
+    ],
     cookies: []
   }
 
@@ -18,9 +24,7 @@ class Global {
    * @param {string} val cookie值 
    */
   deleteCookie (val) {
-    console.log(this.global.cookies)
     this.global.cookies.splice(this.global.cookies.indexOf(val), 1)
-    console.log(this.global.cookies)
   }
 
   /**
@@ -38,6 +42,22 @@ class Global {
    */
   get () {
     return this.global
+  }
+
+  /**
+   * 使用当前cookie获取用户信息
+   * @param {string} val 当前cookie
+   * @returns 当前cookie对应的用户信息
+   */
+  getUserByCookie (val) {
+    let res = {}
+    for (let index = 0, length = this.global.users.length; index < length; index++) {
+      if (this.global.users[index].cookie === val) {
+        res = this.global.users[index]
+        break
+      }
+    }
+    return res
   }
 }
 
