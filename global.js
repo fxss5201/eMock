@@ -40,7 +40,7 @@ class Global {
    * 获取所有的公共变量
    * @returns 所有的公共变量
    */
-  get () {
+  getGlobal () {
     return this.global
   }
 
