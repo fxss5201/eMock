@@ -1,6 +1,7 @@
 const Mock = require('mockjs')
 const Random = Mock.Random
 
+// 生成文章自增 id
 const articles = Mock.mock({
   'list|100': [{
     'id|+1': 0
@@ -9,11 +10,12 @@ const articles = Mock.mock({
 
 let articleList = articles.list
 
+// 为文章填充标题、内容、时间、作者
 articleList = articleList.map(item => {
   const title = Random.ctitle(3, 10)
   const description = `${title}${Random.cparagraph()}`
   return {
-    id: item.id === 0 ? 100 : item.id,
+    id: item.id === 0 ? 100 : item.id, // 此处是为了模拟新增文章在最前面，新增文章 id 由第一个文章的 id + 1 得到
     title,
     description,
     time: Random.datetime('yyyy-MM-dd HH:mm:ss'),
@@ -21,9 +23,12 @@ articleList = articleList.map(item => {
   }
 })
 
+// 获取文章列表
 const getArticlesFn = async (ctx, next) => {
   const currentPage = ctx.query.currentPage * 1
   const pageSize = ctx.query.pageSize * 1
+
+  // 分页获取数据
   const list = articleList.filter((item, index) => index >= (currentPage - 1) * pageSize && index < currentPage * pageSize)
   ctx.response.type = 'json'
   ctx.response.body = ({
@@ -33,6 +38,11 @@ const getArticlesFn = async (ctx, next) => {
   next()
 }
 
+/**
+ * 由文章 id 获取当前文章所在的 index
+ * @param {string} id 文章 id
+ * @returns 当前文章所在的 index
+ */
 function getArticlesIndexById(id) {
   let res = -1
   for (let i = 0, len = articleList.length; i < len; i++) {
@@ -44,8 +54,10 @@ function getArticlesIndexById(id) {
   return res
 }
 
+// 根据文章 id 获取文章获取文章详情
 const getArticlesByIdFn = async (ctx, next) => {
   const articleIndex = getArticlesIndexById(ctx.params.id * 1)
+
   // 可以在此处进行文章是否存在的判断 articleIndex != -1
   ctx.response.type = 'json'
   ctx.response.body = ({
@@ -54,6 +66,7 @@ const getArticlesByIdFn = async (ctx, next) => {
   next()
 }
 
+// 新增文章
 const postArticlesFn = async (ctx, next) => {
   const postData = ctx.request.body.data
   const id = articleList[0].id + 1
@@ -68,6 +81,7 @@ const postArticlesFn = async (ctx, next) => {
   next()
 }
 
+// 更新文章
 const putArticlesByIdFn = async (ctx, next) => {
   const articleIndex = getArticlesIndexById(ctx.params.id * 1)
   const postData = ctx.request.body.data
@@ -79,6 +93,7 @@ const putArticlesByIdFn = async (ctx, next) => {
   next()
 }
 
+// 删除文章
 const deleteArticlesByIdFn = async (ctx, next) => {
   const articleIndex = getArticlesIndexById(ctx.params.id * 1)
   articleList.splice(articleIndex, 1)

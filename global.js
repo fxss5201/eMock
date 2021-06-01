@@ -1,12 +1,14 @@
 /** 存放公共变量，供所有使用 */
 class Global {
   global = {
+    // 模拟自动登录的时候，首次登录之后，将用户添加到 users 中，后续就可以模拟 cookie 自动登录
     users: [
       {
         cookie: 'cc077e4074d58b5b3afe96921b220364',
         name: 'fxss'
       }
     ],
+    // 登录用户的 cookies
     cookies: []
   }
 

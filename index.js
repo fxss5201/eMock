@@ -7,6 +7,7 @@ const controller = require('./controller')
 
 const app = new Koa()
 
+// 全局公共变量及方法
 app.context.global = global
 
 // log request URL:
