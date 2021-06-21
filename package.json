@@ -7,7 +7,8 @@
     "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "port": "8888",
+  "author": "fxss",
   "license": "ISC",
   "dependencies": {
     "blueimp-md5": "^2.18.0",

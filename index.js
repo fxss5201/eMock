@@ -2,6 +2,7 @@ const Koa = require('koa')
 const chalk = require('chalk')
 const bodyParser = require('koa-bodyparser')
 
+const { port } = require('./package.json')
 const global = require('./global.js').global
 const controller = require('./controller')
 
@@ -22,5 +23,5 @@ app.use(bodyParser())
 // add controllers:
 app.use(controller())
 
-app.listen(8888)
-console.log(chalk.green('app started at port 8888...'))
+app.listen(port)
+console.log(chalk.green(`app started at port ${port}...`))
